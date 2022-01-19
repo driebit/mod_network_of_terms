@@ -3,6 +3,7 @@
 
         <input type="hidden" name="subject_id" value="{{ subject_id }}" />
         <input type="hidden" name="predicate" value="{{ predicate|default:'' }}" />
+        <input type="hidden" name="sources" id="sources" />
 
         <div class="form-group row">
             <label class="control-label col-md-2" for="search">
@@ -18,7 +19,7 @@
                 {_ Term sources _}
             </label>
             <div class="col-md-10">
-                <select multiple required class="selectpicker form-control" id="sourcds" name="sources" title="{_ Select one or more terminology sources _}">
+                <select multiple required class="selectpicker form-control" title="{_ Select one or more terminology sources _}">
                     {% with m.network_of_terms.sources as sources %}
                     {% for source in sources %}
                         <option name="ding" value="{{ source.uri }}"
@@ -72,7 +73,8 @@
     $('.selectpicker').selectpicker();
 
     $('.selectpicker').on('change', function(e) {
-        console.log(e);
+        const values = $(this).selectpicker('val');
+        $('#sources').val(values);
     });
 
     $("#dialog-connect-found-terms").on('click', '.thumbnail', function(e) {

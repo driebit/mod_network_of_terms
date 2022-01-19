@@ -40,7 +40,7 @@ observe_search_query(#search_query{}, _Context) ->
 event(#postback_notify{message = "feedback", target = TargetId, data = _Data}, Context) ->
     Vars = [
         {text, z_context:get_q(find_text, Context)},
-        {sources, z_context:get_q(sources, Context)},
+        {sources, z_string:split(z_context:get_q(sources, Context), ",")},
         {template, z_context:get_q("template", Context)},
         {target, TargetId},
         {subject_id, z_convert:to_integer(z_context:get_q(subject_id, Context))},
