@@ -28,9 +28,9 @@
                     role="alert"
                 >
                     {% if source_result.result.__typename == "ServerError" %}
-                        {_ The term source could not process the  request. _}
+                        {_ The terminology source could not process the request. _}
                     {% elseif sourcee_result.result.__typename == "TmeoutError" %}
-                        {_ The term source is temporarily unavailable. _}
+                        {_ The terminology source is temporarily unavailable. _}
                     {% else %}
                         {_ An error occurred. _}
                     {% endif %}

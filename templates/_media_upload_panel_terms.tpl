@@ -1,5 +1,5 @@
 <div class="tab-pane" id="{{ tab }}-terms">
-    <p>{_ Use the <a href="https://termennetwerk.netwerkdigitaalerfgoed.nl" target="_blank">Network of Terms</a> to find shared terms and link your resources to them. _}
+    <p>{_ Use the <a href="https://termennetwerk.netwerkdigitaalerfgoed.nl" target="_blank">Network of Terms</a> to find shared terms and link your pages to them. _}
         <a href="https://termennetwerk.netwerkdigitaalerfgoed.nl/faq" target="_blank" class="z-btn-help"></a>
     </p>
     <form id="dialog-connect-find-terms" class="form form-horizontal">
