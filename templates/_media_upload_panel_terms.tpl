@@ -1,4 +1,7 @@
 <div class="tab-pane" id="{{ tab }}-terms">
+    <p>{_ Use the <a href="https://termennetwerk.netwerkdigitaalerfgoed.nl" target="_blank">Network of Terms</a> to find shared terms and link your resources to them. _}
+        <a href="https://termennetwerk.netwerkdigitaalerfgoed.nl/faq" target="_blank" class="z-btn-help"></a>
+    </p>
     <form id="dialog-connect-find-terms" class="form form-horizontal">
 
         <input type="hidden" name="subject_id" value="{{ subject_id }}" />
@@ -6,19 +9,19 @@
         <input type="hidden" name="sources" id="sources" />
 
         <div class="form-group row">
-            <label class="control-label col-md-2" for="search">
+            <label class="control-label col-md-3" for="search">
                 {_ Search words _}
             </label>
-            <div class="col-md-10">
-                <input name="find_text" type="text" id="search" value="{{ text|default:'' }}" placeholder="{_ Search words _}" class="do_autofocus form-control" />
+            <div class="col-md-9">
+                <input required name="find_text" type="text" id="search" value="{{ text|default:'' }}" placeholder="{_ For example: Rembrandt, Amsterdam or painting _}" class="do_autofocus form-control" />
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-md-2" for="select-sources">
-                {_ Term sources _}
+            <label class="control-label col-md-3" for="select-sources">
+                {_ Terminology sources _}
             </label>
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <select multiple required class="selectpicker form-control" title="{_ Select one or more terminology sources _}" id="select-sources">
                     {% with m.network_of_terms.sources as sources %}
                     {% for source in sources %}
@@ -37,6 +40,9 @@
                     {% endfor %}
                     {% endwith %}
                 </select>
+                <small class="help-block text-muted">
+                    {_ Choose from terminology sources, such as thesauri, reference lists and classification systems, that you want to consult. _}
+                </small>
             </div>
         </div>
 
