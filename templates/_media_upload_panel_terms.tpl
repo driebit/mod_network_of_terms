@@ -76,12 +76,14 @@
     }
 %}
 {% javascript %}
-    $('#select-sources').selectpicker();
-    $('#select-sources').selectpicker('val', {{ m.session.term_source_selection|to_json }});
     $('#select-sources').on('change', function(e) {
         const values = $(this).selectpicker('val');
         $('#sources').val(values);
     });
+
+    $('#select-sources').selectpicker();
+    $('#select-sources').selectpicker('val', {{ m.session.term_source_selection|to_json }});
+    $('#select-sources').trigger('change');
 
     $("#dialog-connect-found-terms").on('click', '.thumbnail', function(e) {
         e.preventDefault();
