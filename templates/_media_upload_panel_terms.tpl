@@ -15,11 +15,11 @@
         </div>
 
         <div class="form-group row">
-            <label class="control-label col-md-2" for="sources">
+            <label class="control-label col-md-2" for="select-sources">
                 {_ Term sources _}
             </label>
             <div class="col-md-10">
-                <select multiple required class="selectpicker form-control" title="{_ Select one or more terminology sources _}">
+                <select multiple required class="selectpicker form-control" title="{_ Select one or more terminology sources _}" id="select-sources">
                     {% with m.network_of_terms.sources as sources %}
                     {% for source in sources %}
                         <option name="ding" value="{{ source.uri }}"
@@ -70,9 +70,9 @@
     }
 %}
 {% javascript %}
-    $('.selectpicker').selectpicker();
-
-    $('.selectpicker').on('change', function(e) {
+    $('#select-sources').selectpicker();
+    $('#select-sources').selectpicker('val', {{ m.session.term_source_selection|to_json }});
+    $('#select-sources').on('change', function(e) {
         const values = $(this).selectpicker('val');
         $('#sources').val(values);
     });

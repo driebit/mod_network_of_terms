@@ -35,6 +35,7 @@ event(#postback_notify{message = "feedback", target = TargetId, data = _Data}, C
             [];
         List -> z_string:split(List, ",")
     end,
+    z_context:set_session(term_source_selection, Sources, Context),
     Vars = [
         {text, z_context:get_q(find_text, Context)},
         {sources, Sources},
