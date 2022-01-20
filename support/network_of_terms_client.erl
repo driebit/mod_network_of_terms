@@ -28,7 +28,7 @@ find_terms(Sources, Query) when is_list(Sources) and is_binary(Query) ->
     Terms.
 
 request(Query) ->
-    case httpc:request(post, {binary_to_list(?URL), [], "application/json", jsx:encode(Query)}, [], []) of
+    case httpc:request(post, {binary_to_list(?URL), [], "application/json", jsx:encode(Query)}, httpc_options(), []) of
         {ok, {{_, StatusCode, _}, _Headers, Body}} when StatusCode < 400 ->
             jsx:decode(list_to_binary(Body))
     end.
@@ -100,3 +100,10 @@ terms_query(Sources, Query) when is_list(Sources) and is_binary(Query) ->
             <<"query">> => Query
         }
     }.
+
+httpc_options() ->
+    [
+        {timeout, 15000},
+        {connect_timeout, 10000}
+    ].
+
