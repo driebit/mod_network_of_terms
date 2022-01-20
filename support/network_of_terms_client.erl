@@ -19,7 +19,11 @@ get_sources() ->
 
 %% @doc Find terms in the Network of Terms.
 -spec find_terms(list(binary()), binary()) -> list(map()).
-find_terms(Sources, Query) ->
+find_terms([], _) ->
+    [];
+find_terms(_, <<>>) ->
+    [];
+find_terms(Sources, Query) when is_list(Sources) and is_binary(Query) ->
     #{<<"data">> := #{<<"terms">> := Terms}} = request(terms_query(Sources, Query)),
     Terms.
 

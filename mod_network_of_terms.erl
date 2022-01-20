@@ -19,28 +19,25 @@
 
 -spec observe_search_query(#search_query{}, z:context()) -> #search_result{}.
 observe_search_query(#search_query{search = {terms, Args}} = _Query, _Context) ->
-    case {proplists:get_value(sources, Args), proplists:get_value(text, Args)} of
-        {undefined, _} ->
-            #search_result{result = []};
-        {_, undefined} ->
-            #search_result{result = []};
-        {Sources, Text} ->
-            #search_result{
-                result = network_of_terms_client:find_terms(
-                    %% TODO: only returns a single source, even if more are selected.
-                    [z_convert:to_binary(S) || S <- [Sources]],
-                    z_convert:to_binary(Text)
-                )
-            }
-    end;
+    #search_result{
+        result = network_of_terms_client:find_terms(
+            [z_convert:to_binary(S) || S <- proplists:get_value(sources, Args)],
+            z_convert:to_binary(proplists:get_value(text, Args))
+        )
+    };
 observe_search_query(#search_query{}, _Context) ->
     undefined.
 
 -spec event(#postback_notify{}, z:context()) -> z:context().
 event(#postback_notify{message = "feedback", target = TargetId, data = _Data}, Context) ->
+    Sources = case z_context:get_q(sources, Context) of
+        [] ->
+            [];
+        List -> z_string:split(List, ",")
+    end,
     Vars = [
         {text, z_context:get_q(find_text, Context)},
-        {sources, z_string:split(z_context:get_q(sources, Context), ",")},
+        {sources, Sources},
         {template, z_context:get_q("template", Context)},
         {target, TargetId},
         {subject_id, z_convert:to_integer(z_context:get_q(subject_id, Context))},
