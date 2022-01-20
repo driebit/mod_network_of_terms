@@ -9,13 +9,34 @@
 -mod_depends([
     mod_ginger_rdf
 ]).
+-mod_schema(1).
 
 -include_lib("zotonic.hrl").
+-include_lib("mod_ginger_rdf/include/rdf.hrl").
 
 -export([
+    manage_schema/2,
     observe_search_query/2,
     event/2
 ]).
+
+-spec manage_schema(pos_integer(), z:context()) -> ok.
+manage_schema(_Version, Context) ->
+    Datamodel = #datamodel{
+        categories = [
+            {term, rdf, [
+                {title, {trans, [
+                    {nl, "Term"},
+                    {en, "Term"}
+                ]}},
+                {summary, {trans, [
+                    {nl, "Een gedeelde term gevonden via het Termennetwerk."},
+                    {en, "A shared term found via the Network of Terms."}
+                ]}}
+            ]}
+        ]
+    },
+    z_datamodel:manage(?MODULE, Datamodel, Context).
 
 -spec observe_search_query(#search_query{}, z:context()) -> #search_result{}.
 observe_search_query(#search_query{search = {terms, Args}} = _Query, _Context) ->

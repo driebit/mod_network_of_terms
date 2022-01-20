@@ -72,6 +72,7 @@
             language=language
             action=action
             actions=actions
+            category=`term`
         }
     }
 %}
