@@ -86,6 +86,10 @@
     $('#select-sources').selectpicker('val', {{ m.session.term_source_selection|to_json }});
     $('#select-sources').trigger('change');
 
+    $("#dialog-connect-found-terms").on('click', '.thumbnail a', function(e) {
+        e.stopPropagation();
+    });
+
     $("#dialog-connect-found-terms").on('click', '.thumbnail', function(e) {
         e.preventDefault();
         z_event('dialog_connect_find_terms', {

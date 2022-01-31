@@ -19,6 +19,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: ../ginger/modules/mod_network_of_terms/templates/_action_dialog_connect_tab_find_terms_results_item.tpl:12
+msgid "Alternative label"
+msgstr "Alternatief label"
+
+#: ../ginger/modules/mod_network_of_terms/templates/_action_dialog_connect_tab_find_terms_results_item.tpl:14
+msgid "Alternative labels"
+msgstr "Alternatieve labels"
+
 #: ../ginger/modules/mod_network_of_terms/templates/_action_dialog_connect_tab_find_terms_results_loop.tpl:35
 msgid "An error occurred."
 msgstr "Er is een fout opgetreden."
@@ -78,12 +86,16 @@ msgstr "De terminologiebron is tijdelijk onbereikbaar."
 #: ../ginger/modules/mod_network_of_terms/templates/_media_upload_panel_terms.tpl:2
 msgid ""
 "Use the <a href=\"https://termennetwerk.netwerkdigitaalerfgoed.nl\" target="
-"\"_blank\">Network of Terms</a> to find shared terms and link your pages "
-"to them."
+"\"_blank\">Network of Terms</a> to find shared terms and link your pages to "
+"them."
 msgstr ""
-"Gebruik het <a href=\"https://termennetwerk.netwerkdigitaalerfgoed.nl\" target="
-"\"_blank\">Termennetwerk</a> om gedeelde termen te vinden en je pagina’s daaraan "
-"te linken."
+"Gebruik het <a href=\"https://termennetwerk.netwerkdigitaalerfgoed.nl\" "
+"target=\"_blank\">Termennetwerk</a> om gedeelde termen te vinden en je "
+"pagina’s daaraan te linken."
+
+#: ../ginger/modules/mod_network_of_terms/templates/_action_dialog_connect_tab_find_terms_results_item.tpl:6
+msgid "View at source"
+msgstr "Bekijk bij bron"
 
 #: ../ginger/modules/mod_network_of_terms/templates/_action_dialog_connect_tab_find_terms_results_loop.tpl:12
 msgid "terms found"

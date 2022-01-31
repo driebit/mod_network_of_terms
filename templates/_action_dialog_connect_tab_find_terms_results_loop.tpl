@@ -39,10 +39,8 @@
         </div>
     </div>
     {% if source_result.result.terms %}
-    <div class="row">
         {% for term in source_result.result.terms %}
             {% include "_action_dialog_connect_tab_find_terms_results_item.tpl" term=term %}
         {% endfor %}
-    </div>
     {% endif %}
 {% endfor %}

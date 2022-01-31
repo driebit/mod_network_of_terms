@@ -1,15 +1,21 @@
-{% with
-    term.uri
-as
-    id
-%}
+<div class="row">
     <div class="col-md-12">
-        <a href="{{ id }}" target="_blank" class="thumbnail{% if m.rdf_triple.id[subject_id][predicate][id] %} thumbnail-connected{% endif %}" data-id="{{ id }}" data-title="{{ term.prefLabel|join:" • " }}">
-            <div class="z-thumbnail-text">
-                <h5>{{ term.prefLabel|join:" • " }}</h5>
-                <h6>{{ term.altLabel|join:" • " }}</h6>
-                <p>{{ term.scopeNote|truncate:350 }}</p>
-            </div>
-        </a>
+        <div href="{{ term.uri }}" class="thumbnail{% if m.rdf_triple.id[subject_id][predicate][term.uri] %} thumbnail-connected{% endif %}" data-id="{{ term.uri }}" data-title="{{ term.prefLabel|join:" • " }}">
+            <h5>
+                {{ term.prefLabel|join:" • " }}
+                <a href="{{ term.seeAlso|first|default:term.uri }}" target="_blank" class="btn-default pull-right btn btn-xs"><span class="glyphicon glyphicon-new-window"> </span> {_ View at source _}</a>
+            </h5>
+            <p>{{ term.scopeNote|join:" • "|truncate:5000 }}</p>
+            {% if term.altLabel|length %}
+                <p>
+                    {% if term.altLabel|length == 1 %}
+                        {_ Alternative label _}:
+                    {% else %}
+                        {_ Alternative labels _}:
+                    {% endif %}
+                    {{ term.altLabel|join:" • " }}
+                </p>
+            {% endif %}
+        </div>
     </div>
-{% endwith %}
+</div>
