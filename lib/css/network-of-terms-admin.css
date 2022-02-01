@@ -1,3 +1,13 @@
-.connect-results {
+#dialog-connect-found-terms .connect-results {
     max-height: 70vh;
+}
+
+#dialog-connect-found-terms .thumbnail {
+    max-height: fit-content;
+    text-decoration: none;
+}
+
+#dialog-connect-found-terms .thumbnail p {
+    margin-top: 1em;
+    max-height: fit-content;
 }
