@@ -101,7 +101,3 @@
         $('#{{ #close }}').removeClass("btn-default").addClass("btn-primary");
     });
 {% endjavascript %}
-
-{% lib
-    "css/network-of-terms-admin.css"
-%}
