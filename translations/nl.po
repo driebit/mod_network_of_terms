@@ -19,11 +19,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: ../ginger/modules/mod_network_of_terms/templates/_admin_edit_basics_form.term.tpl:4
+msgid "A term with this URI was not found in the Network of Terms."
+msgstr "Een term met deze URI kon niet worden gevonden in het Termennetwerk."
+
 #: ../ginger/modules/mod_network_of_terms/templates/_action_dialog_connect_tab_find_terms_results_item.tpl:12
 msgid "Alternative label"
 msgstr "Alternatief label"
 
 #: ../ginger/modules/mod_network_of_terms/templates/_action_dialog_connect_tab_find_terms_results_item.tpl:14
+#: ../ginger/modules/mod_network_of_terms/templates/_admin_edit_basics_form.term.tpl:21
 msgid "Alternative labels"
 msgstr "Alternatieve labels"
 
@@ -32,6 +37,7 @@ msgid "An error occurred."
 msgstr "Er is een fout opgetreden."
 
 #: ../ginger/modules/mod_network_of_terms/templates/_media_upload_panel_terms.tpl:55
+#: ../ginger/modules/mod_network_of_terms/templates/_action_dialog_edit_basics.term.tpl:11
 msgid "Cancel"
 msgstr ""
 
@@ -63,6 +69,14 @@ msgstr ""
 msgid "One term found"
 msgstr "Eén term gevonden"
 
+#: ../ginger/modules/mod_network_of_terms/templates/_admin_edit_basics_form.term.tpl:18
+msgid "Preferred label"
+msgstr "Geprefereerd label"
+
+#: ../ginger/modules/mod_network_of_terms/templates/_admin_edit_basics_form.term.tpl:24
+msgid "Scope note"
+msgstr "Gebruiksnotitie"
+
 #: ../ginger/modules/mod_network_of_terms/templates/_media_upload_panel_terms.tpl:13
 msgid "Search words"
 msgstr "Zoekwoorden"
@@ -70,6 +84,10 @@ msgstr "Zoekwoorden"
 #: ../ginger/modules/mod_network_of_terms/templates/_media_upload_panel_terms.tpl:25
 msgid "Select one or more terminology sources"
 msgstr "Selecteer een of meerdere terminologiebronnen"
+
+#: ../ginger/modules/mod_network_of_terms/templates/_admin_edit_basics_form.term.tpl:11
+msgid "Terminology source"
+msgstr "Terminologiebron"
 
 #: ../ginger/modules/mod_network_of_terms/templates/_media_upload_panel_terms.tpl:22
 msgid "Terminology sources"
@@ -83,17 +101,30 @@ msgstr "De terminologiebron kon de vraag niet verwerken."
 msgid "The terminology source is temporarily unavailable."
 msgstr "De terminologiebron is tijdelijk onbereikbaar."
 
+#: ../ginger/modules/mod_network_of_terms/templates/_action_dialog_edit_basics.term.tpl:3
+msgid ""
+"This is a term from the <a href=\"https://termennetwerk."
+"netwerkdigitaalerfgoed.nl\" target=\"_blank\">Network of Terms</a>."
+msgstr ""
+"Dit is een term uit het <a href=\"https://termennetwerk."
+"netwerkdigitaalerfgoed.nl\" target=\"_blank\">Termennetwerk</a>."
+
+#: ../ginger/modules/mod_network_of_terms/templates/_admin_edit_basics_form.term.tpl:8
+msgid "URI"
+msgstr "URI"
+
 #: ../ginger/modules/mod_network_of_terms/templates/_media_upload_panel_terms.tpl:2
 msgid ""
 "Use the <a href=\"https://termennetwerk.netwerkdigitaalerfgoed.nl\" target="
-"\"_blank\">Network of Terms</a> to find shared terms and link your pages to "
-"them."
+"\"_blank\">Network of Terms</a> to find shared terms and link your pages "
+"to them."
 msgstr ""
 "Gebruik het <a href=\"https://termennetwerk.netwerkdigitaalerfgoed.nl\" "
 "target=\"_blank\">Termennetwerk</a> om gedeelde termen te vinden en je "
 "pagina’s daaraan te linken."
 
 #: ../ginger/modules/mod_network_of_terms/templates/_action_dialog_connect_tab_find_terms_results_item.tpl:6
+#: ../ginger/modules/mod_network_of_terms/templates/_admin_edit_basics_form.term.tpl:9
 msgid "View at source"
 msgstr "Bekijk bij bron"
 

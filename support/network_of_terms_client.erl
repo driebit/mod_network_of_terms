@@ -4,7 +4,8 @@
 
 -export([
     get_sources/0,
-    find_terms/2
+    find_terms/2,
+    lookup/1
 ]).
 
 -include("zotonic.hrl").
@@ -26,6 +27,11 @@ find_terms(_, <<>>) ->
 find_terms(Sources, Query) when is_list(Sources) and is_binary(Query) ->
     #{<<"data">> := #{<<"terms">> := Terms}} = request(terms_query(Sources, Query)),
     Terms.
+
+-spec lookup(list(binary())) -> list(map()).
+lookup(Uris) ->
+    #{<<"data">> := #{<<"lookup">> := Results}} = request(lookup_query(Uris)),
+    Results.
 
 request(Query) ->
     case httpc:request(post, {binary_to_list(?URL), [], "application/json", jsx:encode(Query)}, httpc_options(), []) of
@@ -75,18 +81,18 @@ terms_query(Sources, Query) when is_list(Sources) and is_binary(Query) ->
                                 scopeNote
                                 seeAlso
                                 broader {
-                                  uri
-                                  prefLabel
+                                    uri
+                                    prefLabel
                                 }
                                 narrower {
-                                  uri
-                                  prefLabel
+                                    uri
+                                    prefLabel
                                 }
                                 related {
-                                  uri
-                                  prefLabel
+                                    uri
+                                    prefLabel
                                 }
-                              }
+                            }
                         }
                         ... on Error {
                             __typename
@@ -98,6 +104,61 @@ terms_query(Sources, Query) when is_list(Sources) and is_binary(Query) ->
         <<"variables">> => #{
             <<"sources">> => Sources,
             <<"query">> => Query
+        }
+    }.
+
+lookup_query(Uris) when is_list(Uris) ->
+    #{
+        <<"query">> => <<"
+            query ($uris: [ID]!) {
+                lookup (uris: $uris) {
+                    uri
+                    source {
+                        ... on Source {
+                            name
+                            uri
+                            alternateName
+                            creators {
+                                uri
+                                name
+                                alternateName
+                            }
+                        }
+                        ... on Error {
+                            __typename
+                            message
+                        }
+                    }
+                    result {
+                        __typename
+                        ... on Term {
+                            uri
+                            prefLabel
+                            altLabel
+                            hiddenLabel
+                            scopeNote
+                            seeAlso
+                            broader {
+                                uri
+                                prefLabel
+                            }
+                            narrower {
+                                uri
+                                prefLabel
+                            }
+                            related {
+                                uri
+                                prefLabel
+                            }
+                        }
+                        ... on Error {
+                            message
+                        }
+                    }
+                }
+            }">>,
+        <<"variables">> => #{
+            <<"uris">> => Uris
         }
     }.
 
