@@ -3,14 +3,42 @@
 -author("David de Boer <david@ddeboer.nl>").
 
 -export([
-    get_sources/0,
-    find_terms/2,
-    lookup/1
+    get_sources/1,
+    find_terms/3,
+    lookup/2
 ]).
 
 -include("zotonic.hrl").
 
 -define(URL, <<"https://termennetwerk-api.netwerkdigitaalerfgoed.nl/graphql">>).
+
+% Exported functions:
+
+%% @doc ACL-protected version of 'get_sources/0'
+-spec get_sources(z:context()) -> list(map()).
+get_sources(Context) ->
+    case network_of_terms_acl:is_allowed(Context) of
+        false -> [];
+        true -> get_sources()
+    end.
+
+%% @doc ACL-protected version of 'find_terms/2'
+-spec find_terms(list(binary()), binary(), z:context()) -> list(map()).
+find_terms(Sources, Query, Context) ->
+    case network_of_terms_acl:is_allowed(Context) of
+        false -> [];
+        true -> find_terms(Sources, Query)
+    end.
+
+%% @doc ACL-protected version of 'lookup/1'
+-spec lookup(list(binary()), z:context()) -> list(map()).
+lookup(Uris, Context) ->
+    case network_of_terms_acl:is_allowed(Context) of
+        false -> [];
+        true -> lookup(Uris)
+    end.
+
+% Internal functions:
 
 %% @doc Get list of term sources that are available in the Network of Terms.
 -spec get_sources() -> list(map()).

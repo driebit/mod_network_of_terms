@@ -39,11 +39,12 @@ manage_schema(_Version, Context) ->
     z_datamodel:manage(?MODULE, Datamodel, Context).
 
 -spec observe_search_query(#search_query{}, z:context()) -> #search_result{}.
-observe_search_query(#search_query{search = {terms, Args}} = _Query, _Context) ->
+observe_search_query(#search_query{search = {terms, Args}} = _Query, Context) ->
     #search_result{
         result = network_of_terms_client:find_terms(
             [z_convert:to_binary(S) || S <- proplists:get_value(sources, Args)],
-            z_convert:to_binary(proplists:get_value(text, Args))
+            z_convert:to_binary(proplists:get_value(text, Args)),
+            Context
         )
     };
 observe_search_query(#search_query{}, _Context) ->
@@ -51,24 +52,28 @@ observe_search_query(#search_query{}, _Context) ->
 
 -spec event(#postback_notify{}, z:context()) -> z:context().
 event(#postback_notify{message = "feedback", target = TargetId, data = _Data}, Context) ->
-    Sources = case z_context:get_q(sources, Context) of
-        [] ->
-            [];
-        List -> z_string:split(List, ",")
-    end,
-    z_context:set_session(term_source_selection, Sources, Context),
-    Vars = [
-        {text, z_context:get_q(find_text, Context)},
-        {sources, Sources},
-        {template, z_context:get_q("template", Context)},
-        {target, TargetId},
-        {subject_id, z_convert:to_integer(z_context:get_q(subject_id, Context))},
-        {predicate, z_context:get_q(predicate, Context, "")}
-    ],
-    z_render:wire(
-        [
-            {remove_class, [{target, TargetId}, {class, "loading"}]},
-            {update, Vars}
-        ],
-        Context
-    ).
+    case network_of_terms_acl:is_allowed(Context) of
+        false -> Context;
+        true ->
+            Sources = case z_context:get_q(sources, Context) of
+                [] ->
+                    [];
+                List -> z_string:split(List, ",")
+            end,
+            z_context:set_session(term_source_selection, Sources, Context),
+            Vars = [
+                {text, z_context:get_q(find_text, Context)},
+                {sources, Sources},
+                {template, z_context:get_q("template", Context)},
+                {target, TargetId},
+                {subject_id, z_convert:to_integer(z_context:get_q(subject_id, Context))},
+                {predicate, z_context:get_q(predicate, Context, "")}
+            ],
+            z_render:wire(
+                [
+                    {remove_class, [{target, TargetId}, {class, "loading"}]},
+                    {update, Vars}
+                ],
+                Context
+            )
+    end.

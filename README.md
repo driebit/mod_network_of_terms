@@ -24,6 +24,17 @@ Enable this module to show a ‘Network of Terms’ tab in the admin when linkin
 
 A template model for retrieving the list of term sources.
 
+
+Access Control
+-----
+
+Access to the module is allowed by default to all users for retro-compatibility.
+
+For non-admin users, this can be restricted by explicitly forbidding `use` of
+`mod_network_of_terms`, either by handling the ACL notification directly or by
+othwerwise setting up an ACL rule.
+
+
 Issues
 ------
 
