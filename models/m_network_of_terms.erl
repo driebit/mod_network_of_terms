@@ -11,14 +11,14 @@
 
 -behaviour(gen_model).
 
-m_find_value(sources, #m{}, _Context) ->
-    network_of_terms_client:get_sources();
+m_find_value(sources, #m{}, Context) ->
+    network_of_terms_client:get_sources(Context);
 m_find_value(Uri, #m{}, Context) when not is_binary(Uri) ->
     m_find_value(z_convert:to_binary(Uri), #m{}, Context);
 m_find_value(Uri, #m{}, Context) when is_binary(Uri) ->
     z_depcache:memo(
         fun() ->
-            [Result] = network_of_terms_client:lookup([Uri]),
+            [Result] = network_of_terms_client:lookup([Uri], Context),
             lookup_result(Result)
         end,
         {term, Uri},
