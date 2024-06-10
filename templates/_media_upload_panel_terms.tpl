@@ -1,3 +1,4 @@
+{% if m.network_of_terms.is_allowed %}
 <div class="tab-pane" id="{{ tab }}-terms">
     <p>{_ Use the <a href="https://termennetwerk.netwerkdigitaalerfgoed.nl" target="_blank">Network of Terms</a> to find shared terms and link your pages to them. _}
         <a href="https://termennetwerk.netwerkdigitaalerfgoed.nl/faq" target="_blank" class="z-btn-help"></a>
@@ -101,3 +102,4 @@
         $('#{{ #close }}').removeClass("btn-default").addClass("btn-primary");
     });
 {% endjavascript %}
+{% endif %}
