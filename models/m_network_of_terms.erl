@@ -11,6 +11,8 @@
 
 -behaviour(gen_model).
 
+m_find_value(is_allowed, #m{}, Context) ->
+    network_of_terms_acl:is_allowed(Context);
 m_find_value(sources, #m{}, Context) ->
     network_of_terms_client:get_sources(Context);
 m_find_value(Uri, #m{}, Context) when not is_binary(Uri) ->
