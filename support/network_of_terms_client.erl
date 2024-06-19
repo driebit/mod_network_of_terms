@@ -18,7 +18,7 @@
 -spec get_sources(z:context()) -> list(map()).
 get_sources(Context) ->
     case network_of_terms_acl:is_allowed(Context) of
-        false -> [];
+        false -> {error, eacces};
         true -> get_sources()
     end.
 
@@ -26,7 +26,7 @@ get_sources(Context) ->
 -spec find_terms(list(binary()), binary(), z:context()) -> list(map()).
 find_terms(Sources, Query, Context) ->
     case network_of_terms_acl:is_allowed(Context) of
-        false -> [];
+        false -> {error, eacces};
         true -> find_terms(Sources, Query)
     end.
 
@@ -34,7 +34,7 @@ find_terms(Sources, Query, Context) ->
 -spec lookup(list(binary()), z:context()) -> list(map()).
 lookup(Uris, Context) ->
     case network_of_terms_acl:is_allowed(Context) of
-        false -> [];
+        false -> {error, eacces};
         true -> lookup(Uris)
     end.
 
@@ -195,4 +195,3 @@ httpc_options() ->
         {timeout, 15000},
         {connect_timeout, 10000}
     ].
-
