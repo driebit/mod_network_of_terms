@@ -43,8 +43,7 @@ lookup(Uris, Context) ->
 %% @doc Get list of term sources that are available in the Network of Terms.
 -spec get_sources() -> list(map()).
 get_sources() ->
-    #{<<"data">> := #{<<"sources">> := Sources}} = request(sources_query()),
-    Sources.
+    request(<<"sources">>, sources_query()).
 
 %% @doc Find terms in the Network of Terms.
 -spec find_terms(list(binary()), binary()) -> list(map()).
@@ -53,18 +52,28 @@ find_terms([], _) ->
 find_terms(_, <<>>) ->
     [];
 find_terms(Sources, Query) when is_list(Sources) and is_binary(Query) ->
-    #{<<"data">> := #{<<"terms">> := Terms}} = request(terms_query(Sources, Query)),
-    Terms.
+    request(<<"terms">>, terms_query(Sources, Query)).
 
 -spec lookup(list(binary())) -> list(map()).
 lookup(Uris) ->
-    #{<<"data">> := #{<<"lookup">> := Results}} = request(lookup_query(Uris)),
-    Results.
+    request(<<"lookup">>, lookup_query(Uris)).
 
-request(Query) ->
+request(DataField, Query) ->
     case httpc:request(post, {binary_to_list(?URL), [], "application/json", jsx:encode(Query)}, httpc_options(), []) of
         {ok, {{_, StatusCode, _}, _Headers, Body}} when StatusCode < 400 ->
-            jsx:decode(list_to_binary(Body))
+            case jsx:decode(list_to_binary(Body)) of
+                #{<<"data">> := #{DataField := Results}} ->
+                    Results;
+                ActualData ->
+                    lager:error("Received unexpected data from query ~p: ~p", [Query, ActualData]),
+                    []
+            end;
+        {ok, Result} ->
+            lager:error("Unexpected response from termennetwerk-api for query ~p: ~p", [Query, Result]),
+            [];
+        {error, Reason} ->
+            lager:error("Termennetwerk-api error for query ~p: ~p", [Query, Reason]),
+            []
     end.
 
 sources_query() ->
